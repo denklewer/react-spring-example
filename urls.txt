@@ -1,0 +1,3 @@
+/todos -> list of todo
+/todos/:id, /todos/10 -> concrete todo
+/todos/create -> form for todo creation

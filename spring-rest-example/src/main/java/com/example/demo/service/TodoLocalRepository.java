@@ -18,6 +18,16 @@ public class TodoLocalRepository implements TodoRepository {
 
     @Override
     public Todo save(Todo todo) {
+        if (todo.getId() == 0) {
+            int id = 0;
+            for (Integer currentId : storage.keySet()) {
+                if (currentId > id){
+                    id = currentId;
+                }
+            }
+            id++;
+            todo.setId(id);
+        }
         storage.put(todo.getId(), todo);
         return todo;
     }

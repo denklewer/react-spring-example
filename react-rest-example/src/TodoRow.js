@@ -1,11 +1,14 @@
 import React from 'react';
 import  PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 const TodoRow = (props) => {
     const {todo, onRemove} = props;
     return(
         <tr>
             <td>
-                {todo.text}
+                <Link to={"/todos/"+ todo.id}>
+                    {todo.text}
+                </Link>
             </td>
             <td>
                 <button onClick={e => onRemove(todo)}>Remove</button>

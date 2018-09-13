@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 class TodoAdder extends Component {
     state = {
-        newTodoText: ""
+        text: "",
+        id: 0
     };
 
     constructor() {
@@ -12,6 +13,13 @@ class TodoAdder extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
+
+    componentWillReceiveProps = (newProps) => {
+        this.setState({
+            id: newProps.todo.id,
+            text: newProps.todo.text
+        });
+    };
 
     handleChange = (event) => {
         const {name, value} = event.target;
@@ -22,7 +30,8 @@ class TodoAdder extends Component {
     handleClick = () => {
         this.props.onAdd(this.state);
         this.setState({
-            newTodoText: ""
+            id: 0,
+            text: ""
         });
     };
 
@@ -33,8 +42,8 @@ class TodoAdder extends Component {
                 <tbody>
                 <tr>
                     <td>
-                        <input name="newTodoText"
-                               value={this.state.newTodoText}
+                        <input name="text"
+                               value={this.state.text}
                                onChange={this.handleChange}/>
                     </td>
                     <td>
@@ -51,6 +60,10 @@ class TodoAdder extends Component {
 }
 
 TodoAdder.propTypes= {
+    todo: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired
+    }).isRequired,
     onAdd: PropTypes.func.isRequired,
     isLoading: PropTypes.bool.isRequired
 };

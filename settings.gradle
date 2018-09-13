@@ -1,0 +1,4 @@
+rootProject.name = 'react-spring-example'
+include 'react-rest-example'
+include 'spring-rest-example'
+

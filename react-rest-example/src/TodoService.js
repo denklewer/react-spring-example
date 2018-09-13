@@ -12,11 +12,34 @@ class TodoService {
             })
         });
     }
+    static findOne(id) {
+        return new Promise((resolve) => {
+            axios.get('/todos/' + id)
+                .then((response) => {
+                resolve(response.data)
+            });
+        });
+    }
 
-    static add(data){
-        return new Promise((resolve) =>{
-            axios.post('/todos',data).then((response)=> {
-                resolve(response.data)});
+    static create() {
+        return new Promise((resolve) => {
+            resolve({
+                text: "",
+                id: 0
+            })
+        });
+    }
+
+    static save(data){
+           return new Promise((resolve) =>{
+               if (data.id) {
+                   axios.put('/todos/' + data.id,data).then((response)=> {
+                       resolve(response.data)});
+               } else {
+                   axios.post('/todos',data).then((response)=> {
+                       resolve(response.data)});
+               }
+
         });
     }
 

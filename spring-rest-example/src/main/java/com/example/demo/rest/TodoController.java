@@ -42,4 +42,17 @@ public class TodoController {
         Todo todo = todoService.getById(id);
         todoService.remove(todo);
     }
+
+    @PutMapping(value = "/todos/{id}")
+    public TodoRestModel update(@Validated @RequestBody TodoRestModel restTodo, BindingResult bindingResult) {
+        Todo todo = transformer.unbind(restTodo);
+        Todo savedTodo = todoService.save(todo);
+        return transformer.bind(savedTodo);
+    }
+    @GetMapping("/todos/{id}")
+    public TodoRestModel findOne(@PathVariable("id") int id) {
+        final Todo todo = todoService.getById(id);
+        return transformer.bind(todo);
+    }
+
 }
